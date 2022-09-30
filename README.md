@@ -76,8 +76,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 ### stack
-react, eslint, 
+react, eslint, material-ui, 
 
 ### npm inside
 npx create-react-app . 
 npx eslint --init
+npm install @mui/material @emotion/react @emotion/styled
+npm install @fontsource/roboto
+npm install @mui/icons-material

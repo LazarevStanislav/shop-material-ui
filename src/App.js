@@ -1,15 +1,19 @@
 import { useState } from 'react';
 
-import BasketList from './components/BasketList';
+import Basket from './components/Basket';
 import GoodsList from './components/GoodsList';
 import Search from './components/Search';
+import Header from './components/Header.jsx'
+
+import { Container } from '@mui/material';
 
 import { goods } from './data/goods';
 
 const App = () => {
   const [order, setOrder] = useState([]);
   const [search, setSearch] = useState('');
-  const [products, setProducts] = useState(goods);
+  const [ products, setProducts ] = useState( goods );
+  const [isCartOpen, setCartOpen] = useState(false)
 
   const handleChange = (e) => {
     if (!e.target.value) {
@@ -65,8 +69,16 @@ const App = () => {
   };
 
   return (
-    <div className='App'>
-      <div className='container'>
+    <>
+      <Header
+        handleCart={ () => setCartOpen( true ) }
+        orderLen={order.length}
+      />
+      <Container
+        sx={ {
+          mt: '1rem'
+        } }  
+      >
         <Search
           value={search}
           onChange={handleChange}
@@ -75,12 +87,14 @@ const App = () => {
           goods={products}
           setOrder={addToOrder}
         />
-        <BasketList
-          order={order}
-          setOrder={removeFromOrder}
-        />
-      </div>
-    </div>
+      </Container>
+      <Basket
+        removeFromOrder={removeFromOrder}
+        order={order}
+        cartOpen={ isCartOpen }
+        closeCart={() => setCartOpen(false)}
+      />
+    </>
   );
 }
 
